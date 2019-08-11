@@ -3,8 +3,11 @@ import resolve from "rollup-plugin-node-resolve";
 import commonjs from "rollup-plugin-commonjs";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
+import babel from "rollup-plugin-babel";
 
 const production = !process.env.ROLLUP_WATCH;
+
+const extensions = [".js", ".jsx", ".ts", ".tsx"];
 
 export default {
   input: "src/main.js",
@@ -31,11 +34,17 @@ export default {
     // consult the documentation for details:
     // https://github.com/rollup/rollup-plugin-commonjs
     resolve({
+      extensions,
       browser: true,
       dedupe: importee =>
         importee === "svelte" || importee.startsWith("svelte/")
     }),
-    commonjs(),
+    commonjs({
+      namedExports: {
+        "node_modules/humps/humps.js": ["camelizeKeys"]
+      }
+    }),
+    babel({ extensions, exclude: "node_modules/**" }),
 
     // Watch the `public` directory and refresh the
     // browser on changes when not in production
