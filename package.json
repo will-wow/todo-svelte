@@ -1,8 +1,14 @@
 {
   "name": "svelte-app",
   "version": "1.0.0",
+  "license": "MIT",
   "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-svelte3": "^2.7.3",
     "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "prettier-plugin-svelte": "^0.7.0",
     "rollup": "^1.12.0",
     "rollup-plugin-commonjs": "^10.0.0",
     "rollup-plugin-livereload": "^1.0.0",
@@ -19,6 +25,9 @@
     "autobuild": "rollup -c -w",
     "dev": "run-p start:dev autobuild",
     "start": "sirv public --single",
-    "start:dev": "sirv public --single --dev"
+    "start:dev": "sirv public --single --dev",
+    "format": "npm-run-all -c format:*",
+    "format:eslint": "eslint --fix '**/*.{js,svelte}'",
+    "format:prettier": "prettier --write '**/*.{js,svelte,json,md,css}'"
   }
 }
