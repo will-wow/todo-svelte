@@ -1,5 +1,4 @@
 <script>
-  import { onMount } from "svelte";
   import TodoList from "./todo/TodoList.svelte";
 </script>
 

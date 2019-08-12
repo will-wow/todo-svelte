@@ -4,6 +4,7 @@ import { ok, error, ResultP } from "result-async";
 const api = axios.create({
   baseURL: "http://localhost:3000/api/todos"
 });
+export { api as axios };
 
 const wrapRequestInResult = async <Ok, Error>(
   options: AxiosRequestConfig
