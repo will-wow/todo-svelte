@@ -25,6 +25,16 @@ module.exports = {
     }
   ],
   rules: {
-    "@typescript-eslint/explicit-function-return-type": "off"
+    "no-unused-vars": [
+      "error",
+      {
+        args: "after-used",
+        argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_"
+      }
+    ],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 };

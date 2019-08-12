@@ -28,11 +28,7 @@ export default {
       }
     }),
 
-    // If you have external dependencies installed from
-    // npm, you'll most likely need these plugins. In
-    // some cases you'll need additional configuration —
-    // consult the documentation for details:
-    // https://github.com/rollup/rollup-plugin-commonjs
+    // node_modules
     resolve({
       extensions,
       browser: true,

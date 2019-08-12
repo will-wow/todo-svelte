@@ -1,13 +1,13 @@
-import * as Api from "./japi";
+import * as Api from ".";
 
 describe("Api", () => {
   beforeEach(() => {
     window.fetch = jest.fn();
-    process.env.REACT_APP_BASE_URL = "example.com";
+    process.env.BASE_URL = "example.com";
   });
 
   afterEach(() => {
-    delete process.env.REACT_APP_BASE_URL;
+    delete process.env.BASE_URL;
   });
 
   describe("get", () => {
