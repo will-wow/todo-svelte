@@ -1,4 +1,4 @@
-import { v4 as uuid } from "uuid";
+import uuid from "uuid";
 import { sortBy } from "lodash";
 import { map, pipe, fromPairs, reject, isNil } from "lodash/fp";
 
@@ -61,7 +61,7 @@ export const key = (todo: Todo): string | number => todo.uuid || todo.id;
 export const build = (title: string = "") => {
   return {
     id: -1,
-    uuid: uuid(),
+    uuid: uuid.v4(),
     title,
     done: false,
     createdAt: new Date().toISOString()

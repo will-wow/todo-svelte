@@ -5,19 +5,29 @@ import _ from "lodash";
 import { get } from "../api";
 import * as Todo from "./todo";
 
-export const { subscribe, set, update } = writable<Todo.List>([]);
+export const todoMap = writable<Todo.Map>({});
 
-export const todoList = {
-  subscribe,
-  load: async () => {
-    const response = await get<Todo.List, string>("/");
+export const todoList = derived(todoMap, Object.values);
 
-    if (isError(response)) return null;
+export const loadTodos = async () => {
+  const response = await get<Todo.List, string>("/");
 
-    const todoList = response.ok;
+  if (isError(response)) return null;
 
-    set(todoList);
-  }
+  const todoList = response.ok;
+  const todoMapData = Todo.listToMap(todoList);
+
+  todoMap.set(todoMapData);
+};
+
+export const updateTodo = <Key extends keyof Todo.T>(
+  id: number,
+  key: Key,
+  value: Todo.T[Key]
+): void => {
+  todoMap.update($todoMap => {
+    return _.merge({}, $todoMap, { [id]: { [key]: value } });
+  });
 };
 
 export const doneTodos = derived(todoList, $todoList =>

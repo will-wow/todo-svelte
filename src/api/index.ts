@@ -8,7 +8,6 @@ const api = axios.create({
 const wrapRequestInResult = async <Ok, Error>(
   options: AxiosRequestConfig
 ): ResultP<Ok, Error> => {
-  console.log(options)
   try {
     const request = await api.request(options);
     return ok(request.data);

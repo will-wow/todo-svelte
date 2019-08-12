@@ -1,9 +1,18 @@
 <script>
   import { onMount } from "svelte";
-  import { todoList, doneTodos, pendingTodos, areTodosDone } from "./stores";
+  import {
+    todoList,
+    loadTodos,
+    doneTodos,
+    pendingTodos,
+    areTodosDone
+  } from "./stores";
+  import TodoItem from "./TodoItem.svelte";
+
+  $: console.log($todoList);
 
   onMount(async () => {
-    todoList.load();
+    loadTodos();
   });
 </script>
 
@@ -20,9 +29,13 @@
 
   {#if $areTodosDone}Done!{/if}
 
-  {#each $pendingTodos as todo (todo.uuid || todo.id)}{todo.title}{/each}
+  {#each $pendingTodos as todo (todo.uuid || todo.id)}
+    <TodoItem {todo} />
+  {/each}
 
   <h2>Done</h2>
 
-  {#each $doneTodos as todo (todo.uuid || todo.id)}{todo.title}{/each}
+  {#each $doneTodos as todo (todo.uuid || todo.id)}
+    <TodoItem {todo} />
+  {/each}
 </div>
