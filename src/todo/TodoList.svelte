@@ -8,7 +8,8 @@
     doneTodos,
     pendingTodos,
     areTodosDone,
-    updateTodo
+    updateTodo,
+    deleteTodo
   } from "./stores";
   import TodoItem from "./TodoItem.svelte";
 
@@ -16,31 +17,27 @@
     loadTodos();
   });
 
-  const handleChange = ({ detail: todo }) => {
+  $: console.log($todoList);
+
+  const handleChange = todo => {
     updateTodo(todo);
   };
 </script>
 
-<style>
-  h1 {
-    color: purple;
-  }
-</style>
-
 <div class="TodoList">
-  <h1>Todo List</h1>
+  <h1 class="f1">Todo List</h1>
 
   <hr />
 
   {#if $areTodosDone}Done!{/if}
 
   {#each $pendingTodos as todo (todo.uuid || todo.id)}
-    <TodoItem {todo} on:change={handleChange} />
+    <TodoItem {todo} onChange={handleChange} onDelete={deleteTodo} />
   {/each}
 
   <h2>Done</h2>
 
   {#each $doneTodos as todo (todo.uuid || todo.id)}
-    <TodoItem {todo} on:change={handleChange} />
+    <TodoItem {todo} onChange={handleChange} onDelete={deleteTodo} />
   {/each}
 </div>

@@ -1,16 +1,13 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import { updateTodo } from "./stores";
-  const dispatch = createEventDispatcher();
 
   export let todo;
+  export let onDelete;
+  export let onChange;
 
   function handleChange(key, value) {
-    console.log(key, value);
-    dispatch("change", {
-      ...todo,
-      [key]: value
-    });
+    onChange({ ...todo, [key]: value });
   }
 
   $: done = todo.done;
@@ -27,8 +24,12 @@
     class:done
     value={todo.title}
     on:input={event => handleChange('title', event.target.value)} />
-  <button on:click={() => {}}>X</button>
-  <button on:click={() => handleChange('done', !todo.done)}>
+  <button on:click={() => onDelete(todo)} class="white bg-red">X</button>
+  <button
+    on:click={() => handleChange('done', !todo.done)}
+    class="white"
+    class:bg-blue={!done}
+    class:bg-light-blue={done}>
     {done ? 'Undo' : 'Done'}
   </button>
 </div>

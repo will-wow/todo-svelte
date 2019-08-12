@@ -20,11 +20,18 @@ export const loadTodos = async () => {
   todoMap.set(todoMapData);
 };
 
-export const updateTodo = <Key extends keyof Todo.T>(todo: Todo.T): void => {
+export const updateTodo = (todo: Todo.T): void => {
   todoMap.update($todoMap => {
     return _.merge({}, $todoMap, { [todo.id]: todo });
   });
   put<Todo.T, string>(`/${todo.id}`, todo);
+};
+
+export const deleteTodo = (todo: Todo.T): void => {
+  todoMap.update($todoMap => {
+    delete $todoMap[todo.id];
+    return $todoMap;
+  });
 };
 
 export const doneTodos = derived(todoList, $todoList =>
