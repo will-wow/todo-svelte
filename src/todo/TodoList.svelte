@@ -1,11 +1,14 @@
 <script>
   import { onMount } from "svelte";
+  import _ from "lodash";
+
   import {
     todoList,
     loadTodos,
     doneTodos,
     pendingTodos,
-    areTodosDone
+    areTodosDone,
+    updateTodo
   } from "./stores";
   import TodoItem from "./TodoItem.svelte";
 
@@ -14,6 +17,10 @@
   onMount(async () => {
     loadTodos();
   });
+
+  const handleChange = ({ detail: todo }) => {
+    updateTodo(todo);
+  };
 </script>
 
 <style>
@@ -30,7 +37,7 @@
   {#if $areTodosDone}Done!{/if}
 
   {#each $pendingTodos as todo (todo.uuid || todo.id)}
-    <TodoItem {todo} />
+    <TodoItem {todo} on:change={handleChange} />
   {/each}
 
   <h2>Done</h2>

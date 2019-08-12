@@ -2,7 +2,7 @@ import { writable, derived } from "svelte/store";
 import { isError } from "result-async";
 import _ from "lodash";
 
-import { get } from "../api";
+import { get, put } from "../api";
 import * as Todo from "./todo";
 
 export const todoMap = writable<Todo.Map>({});
@@ -20,14 +20,11 @@ export const loadTodos = async () => {
   todoMap.set(todoMapData);
 };
 
-export const updateTodo = <Key extends keyof Todo.T>(
-  id: number,
-  key: Key,
-  value: Todo.T[Key]
-): void => {
+export const updateTodo = <Key extends keyof Todo.T>(todo: Todo.T): void => {
   todoMap.update($todoMap => {
-    return _.merge({}, $todoMap, { [id]: { [key]: value } });
+    return _.merge({}, $todoMap, { [todo.id]: todo });
   });
+  put<Todo.T, string>(`/${todo.id}`, todo);
 };
 
 export const doneTodos = derived(todoList, $todoList =>

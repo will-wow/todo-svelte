@@ -1,9 +1,16 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   import { updateTodo } from "./stores";
+  const dispatch = createEventDispatcher();
+
   export let todo;
 
   function handleChange(event) {
-    updateTodo(todo.id, "title", event.target.value);
+    console.log(todo);
+    dispatch("change", {
+      ...todo,
+      title: event.target.value
+    });
   }
 </script>
 
