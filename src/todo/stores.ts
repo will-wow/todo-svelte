@@ -28,14 +28,14 @@ export const updateTodo = <Key extends keyof Todo.T>(todo: Todo.T): void => {
 };
 
 export const doneTodos = derived(todoList, $todoList =>
-  _.filter($todoList, { done: false })
-);
-
-export const pendingTodos = derived(todoList, $todoList =>
   _.filter($todoList, { done: true })
 );
 
+export const pendingTodos = derived(todoList, $todoList =>
+  _.filter($todoList, { done: false })
+);
+
 export const areTodosDone = derived(
-  doneTodos,
-  $doneTodos => $doneTodos.length === 0
+  pendingTodos,
+  $pendingTodos => $pendingTodos.length === 0
 );

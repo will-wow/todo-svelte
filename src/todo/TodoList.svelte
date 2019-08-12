@@ -19,6 +19,7 @@
   });
 
   const handleChange = ({ detail: todo }) => {
+    console.log({ todo });
     updateTodo(todo);
   };
 </script>
@@ -43,6 +44,6 @@
   <h2>Done</h2>
 
   {#each $doneTodos as todo (todo.uuid || todo.id)}
-    <TodoItem {todo} />
+    <TodoItem {todo} on:change={handleChange} />
   {/each}
 </div>
