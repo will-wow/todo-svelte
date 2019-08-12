@@ -12,14 +12,11 @@
   } from "./stores";
   import TodoItem from "./TodoItem.svelte";
 
-  $: console.log($todoList);
-
   onMount(async () => {
     loadTodos();
   });
 
   const handleChange = ({ detail: todo }) => {
-    console.log({ todo });
     updateTodo(todo);
   };
 </script>
