@@ -1,7 +1,4 @@
 <script>
-  import { createEventDispatcher } from "svelte";
-  import { updateTodo } from "./stores";
-
   export let todo;
   export let onDelete;
   export let onChange;
@@ -23,6 +20,7 @@
   <input
     class:done
     value={todo.title}
+    placeholder="Enter a thing to do"
     on:input={event => handleChange('title', event.target.value)} />
   <button on:click={() => onDelete(todo)} class="white bg-red">X</button>
   <button
